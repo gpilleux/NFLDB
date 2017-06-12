@@ -2,7 +2,6 @@
     <?php
 print_r($_GET);
     include_once('dbconnect.php');
-print_r($_GET);
     
     if(isset($_GET['player'])){
         $namesLike = $_GET['player'];
