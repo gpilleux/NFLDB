@@ -2,7 +2,6 @@
     <?php
     
     include_once('dbconnect.php');
-    print_r($_POST);
     
     if(isset($_POST['player'])){
         $namesLike = $_POST['player'];

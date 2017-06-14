@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select id="order_players">
+                        <select id="order_players" class="form-control">
                             <option value="ORDER BY name">Nombre</option>
                             <option value="ORDER BY birth_date">Fecha de nacimiento</option>
                             <option value="ORDER BY college">Instituto</option>
@@ -79,14 +79,14 @@
                         </select>
                     </td>
                     <td>
-                        <select id="order_by">
+                        <select id="order_by" class="form-control">
                             <option value="ASC">Ascendiente</option>
                             <option value="DESC">Descendiente</option>
                         </select>
                     </td>
 
                     <td>
-                        <select id="show_limit">
+                        <select id="show_limit" class="form-control">
                             <option value="LIMIT 10">10</option>
                             <option value="LIMIT 50">50</option>
                             <option value="LIMIT 100">100</option>
@@ -94,37 +94,50 @@
                         </select>
                     </td>
 
-                    <td><button type="submit" id="consultar" class="btn btn-primary btn-xs">Ver Stats </button></td>
+                    <td><button type="button" id="consultar" class="btn btn-primary btn-sm">Ver Stats </button></td>
                 </tr>
             </table>
 
             <hr>
-
-            <input type="text" id="players" placeholder="Buscar jugador" size="15" class="form-control">
-
-            <input type="text" id="team" placeholder="Buscar datos del equipo" size="20" class="form-control">
-
-            <hr>
-
-            <div class="input-group">
-                <span class="input-group-addon"> Universidades mejor puntuadas</span>
-                <button type="button" class="btn btn-primary btn-sm" id="uni_mejor_puntuadas" onclick="mejores_univeridades()">Mostrar</button>
+            <div class="row">
+                <div class="col-xs-5">
+                    <input type="text" id="players" placeholder="Buscar jugador" size="15" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">
+                    <input type="text" id="team" placeholder="Buscar datos del equipo" size="20" class="form-control">
+                </div>
             </div>
 
             <hr>
-            <div class="input-group">
-                <span class="input-group-addon"> Mayor cantidad de touchdowns anotados a</span>
-                <select id="touchdown_select">
-                    <?php
-                        for($i=0; $i <pg_numrows($equipos); $i++){
-                            $row = pg_fetch_array($equipos, $i);
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"> Universidades mejor puntuadas</span>
+                        <span class="input-group-btn"><button type="button" class="btn btn-primary btn-sm" id="uni_mejor_puntuadas" onclick="mejores_univeridades()">Mostrar</button></span>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-xs-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"> Equipo que más touchdowns le anotó a</span>
+                        <span class="input-group-addon"><select id="touchdown_select" class="form-control">
+                            <?php
+                            for($i=0; $i <pg_numrows($equipos); $i++){
+                                $row = pg_fetch_array($equipos, $i);
+                                ?>
+                                <option value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></option>
+                            <?php
+                                }
                             ?>
-                            <option value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></option>
-                    <?php
-                        }
-                    ?>
-                </select>
-                <button type="button" class="btn btn-primary btn-sm" id="touchdown_button">Mostrar</button>
+                        </select></span>
+                        <span class="input-group-btn"><button type="button" class="btn btn-primary btn-lg" id="touchdown_button">Mostrar</button></span>
+                    </div>
+                </div>
             </div>
 
             <div id="resultados_busqueda" style="margin-left:120px;padding-left:5px;">

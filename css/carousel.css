@@ -8,7 +8,7 @@ body {
     height: 100%;
     padding-bottom: 40px;
     color: #5a5a5a;
-    background-color: darkgrey;
+    background-color: darkgray;
 }
 
 .carousel .item {
@@ -34,8 +34,8 @@ body {
 }
 
 .carousel .carousel-inner img {
-    display: block;
     object-fit: cover;
+    display: block;
 }
 
 
