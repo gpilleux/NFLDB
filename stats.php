@@ -2,20 +2,7 @@
     
     include_once('dbconnect.php');
 
-    if(isset($_POST['order_players'])){
-        //traer la tabla con los siguientes valores
-        $order = $_POST['order_players'];
-        $orderBy = $_POST['order_by'];
-        $limit = $_POST['show']; 
-        
-        $result = pg_exec($conn, "SELECT * FROM players $order $orderBy $limit ");
-        if(pg_numrows($result) > 0)
-            $row = pg_fetch_array($result, 0);
-        $num_parametros = sizeof(array_keys($row));
-        
-        //print_r($row);
-           
-    }
+    
     $equipos = pg_exec($conn, "SELECT name FROM shortnames");
 
 
@@ -113,15 +100,15 @@
 
             <hr>
 
-            <input type="text" name="players" placeholder="Buscar jugador" onkeyup="predictionsPlayer()" size="15" class="form-control">
+            <input type="text" id="players" placeholder="Buscar jugador" size="15" class="form-control">
 
-            <input type="text" name="team" placeholder="Buscar datos del equipo" onkeyup="predictionsTeam()" size="20" class="form-control">
+            <input type="text" id="team" placeholder="Buscar datos del equipo" size="20" class="form-control">
 
             <hr>
 
             <div class="input-group">
                 <span class="input-group-addon"> Universidades mejor puntuadas</span>
-                <button type="button" class="btn btn-primary btn-sm" onclick="mejores_univeridades()">Mostrar</button>
+                <button type="button" class="btn btn-primary btn-sm" id="uni_mejor_puntuadas" onclick="mejores_univeridades()">Mostrar</button>
             </div>
 
             <hr>
@@ -137,7 +124,7 @@
                         }
                     ?>
                 </select>
-                <button type="button" class="btn btn-primary btn-sm" onclick="mostTouchdowns()">Mostrar</button>
+                <button type="button" class="btn btn-primary btn-sm" id="touchdown_button">Mostrar</button>
             </div>
 
             <div id="resultados_busqueda" style="margin-left:120px;padding-left:5px;">
@@ -149,11 +136,11 @@
                     <?php
                     }else{//hay datos
                         ?>
-                        <table>
+                        <table class="table table-striped table-hover">
                             <tr>
-                                <?php for($i=1; $i <= $num_parametros; $i=$i+2){ ?>
+                                <?php for($i=1; $i <= $num_parametros; $i++){ ?>
                                 <td>
-                                    <?php echo array_keys($row)[$i]?>
+                                    <?php echo array_keys($row)[$i]; ?>
                                 </td>
                                 <?php 
                                 }
@@ -258,9 +245,54 @@
             });
         }
 
+        $(document).ready(function() {
+            $("#players").keyup(function() {
+                var valor_enviar = $("#players").val();
+                $.post("table_search_getter.php", {
+                        player: valor_enviar
+                    },
+                    function(data, status) {
+                        $('#resultados_busqueda').html(data);
+                    });
+            });
+        });
+
+        $(document).ready(function() {
+            $("#team").keyup(function() {
+                var valor_enviar = $("#team").val();
+                $.post("table_search_getter.php", {
+                        team: valor_enviar
+                    },
+                    function(data, status) {
+                        $('#resultados_busqueda').html(data);
+                    });
+            });
+        });
+
+        $(document).ready(function() {
+            $("#touchdown_button").click(function() {
+                var valor_enviar = document.getElementById("touchdown_select").value;
+                $.post("table_search_getter.php", {
+                        touchdown: valor_enviar
+                    },
+                    function(data, status) {
+                        $('#resultados_busqueda').html(data);
+                    });
+            });
+        });
+
+        $(document).ready(function() {
+            $("#uni_mejor_puntuadas").click(function() {
+                var valor_enviar = "";
+                $.post("table_search_getter.php", {
+                        best_uni: valor_enviar
+                    },
+                    function(data, status) {
+                        $('#resultados_busqueda').html(data);
+                    });
+            });
+        });
+
     </script>
-
-
-
 
     </html>
