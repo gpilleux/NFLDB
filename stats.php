@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select name="order_players">
+                        <select id="order_players">
                             <option value="ORDER BY name">Nombre</option>
                             <option value="ORDER BY birth_date">Fecha de nacimiento</option>
                             <option value="ORDER BY college">Instituto</option>
@@ -79,14 +79,14 @@
                         </select>
                     </td>
                     <td>
-                        <select name="order_by">
+                        <select id="order_by">
                             <option value="ASC">Ascendiente</option>
                             <option value="DESC">Descendiente</option>
                         </select>
                     </td>
 
                     <td>
-                        <select name="show">
+                        <select id="show_limit">
                             <option value="LIMIT 10">10</option>
                             <option value="LIMIT 50">50</option>
                             <option value="LIMIT 100">100</option>
@@ -94,7 +94,7 @@
                         </select>
                     </td>
 
-                    <td><button type="submit" name="consultar" class="btn btn-primary btn-xs">Ver Stats </button></td>
+                    <td><button type="submit" id="consultar" class="btn btn-primary btn-xs">Ver Stats </button></td>
                 </tr>
             </table>
 
@@ -257,44 +257,22 @@
             });
         });
 
+        $(document).ready(function() {
+            $("#consultar").click(function() {
+                var player = document.getElementById("order_players").value;
+                var orden = document.getElementById(["order_by"]).value;
+                var limit = document.getElementById(["show_limit"]).value;
+                $.post("table_search_getter.php", {
+                        order_players: player,
+                        order_by: orden,
+                        show: limit
+                    },
+                    function(data, status) {
+                        $('#resultados_busqueda').html(data);
+                    });
+            });
+        });
+
     </script>
-
-    <?php /*
-                if(isset($_POST['order_players'])){
-                    if(!$result || pg_numrows($result) <= 0){//no hay datos
-                        ?> <span class="">No hay datos</span>
-    <?php
-                    }else{//hay datos
-                        ?>
-        <table class="table table-striped table-hover">
-            <tr>
-                <?php for($i=1; $i <= $num_parametros; $i++){ ?>
-                <td>
-                    <?php echo array_keys($row)[$i]; ?>
-                </td>
-                <?php 
-                                }
-                                ?>
-            </tr>
-            <?php 
-                                $numrows = pg_numrows($result);
-                                for($i=0; $i < $numrows; $i++){
-                                    $row = pg_fetch_array($result, $i);
-                            ?>
-            <tr>
-                <?php 
-                                        for($j=1; $j <= $num_parametros; $j=$j+2){ ?>
-                <td>
-                    <?php echo $row[array_keys($row)[$j]]?> </td>
-                <?php   } ?>
-            </tr>
-
-            <?php   } ?>
-
-        </table>
-        <?php 
-                    }  
-                }
-                */?>
 
     </html>
