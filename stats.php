@@ -129,43 +129,7 @@
 
             <div id="resultados_busqueda" style="margin-left:120px;padding-left:5px;">
 
-                <?php
-                if(isset($_POST['order_players'])){
-                    if(!$result || pg_numrows($result) <= 0){//no hay datos
-                        ?> <span class="">No hay datos</span>
-                    <?php
-                    }else{//hay datos
-                        ?>
-                        <table class="table table-striped table-hover">
-                            <tr>
-                                <?php for($i=1; $i <= $num_parametros; $i++){ ?>
-                                <td>
-                                    <?php echo array_keys($row)[$i]; ?>
-                                </td>
-                                <?php 
-                                }
-                                ?>
-                            </tr>
-                            <?php 
-                                $numrows = pg_numrows($result);
-                                for($i=0; $i < $numrows; $i++){
-                                    $row = pg_fetch_array($result, $i);
-                            ?>
-                            <tr>
-                                <?php 
-                                        for($j=1; $j <= $num_parametros; $j=$j+2){ ?>
-                                <td>
-                                    <?php echo $row[array_keys($row)[$j]]?> </td>
-                                <?php   } ?>
-                            </tr>
 
-                            <?php   } ?>
-
-                        </table>
-                        <?php 
-                    }  
-                }
-                ?>
             </div>
 
             <br>
@@ -294,5 +258,43 @@
         });
 
     </script>
+
+    <?php /*
+                if(isset($_POST['order_players'])){
+                    if(!$result || pg_numrows($result) <= 0){//no hay datos
+                        ?> <span class="">No hay datos</span>
+    <?php
+                    }else{//hay datos
+                        ?>
+        <table class="table table-striped table-hover">
+            <tr>
+                <?php for($i=1; $i <= $num_parametros; $i++){ ?>
+                <td>
+                    <?php echo array_keys($row)[$i]; ?>
+                </td>
+                <?php 
+                                }
+                                ?>
+            </tr>
+            <?php 
+                                $numrows = pg_numrows($result);
+                                for($i=0; $i < $numrows; $i++){
+                                    $row = pg_fetch_array($result, $i);
+                            ?>
+            <tr>
+                <?php 
+                                        for($j=1; $j <= $num_parametros; $j=$j+2){ ?>
+                <td>
+                    <?php echo $row[array_keys($row)[$j]]?> </td>
+                <?php   } ?>
+            </tr>
+
+            <?php   } ?>
+
+        </table>
+        <?php 
+                    }  
+                }
+                */?>
 
     </html>
