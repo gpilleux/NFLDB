@@ -54,6 +54,11 @@
                 </div>
             </nav>
         </div>
+        <div align="center">
+            <h2 class="display-4">Estadística</h2>
+            <h5 class="display-4">Consultas</h5>
+            <hr>
+        </div>
         <form method="POST" action="stats.php">
             <div>
                 <span class="">Selección de jugadores</span>

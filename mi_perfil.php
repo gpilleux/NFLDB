@@ -131,7 +131,7 @@
                     <?php print($jugador); ?>
                 </td>
 
-                <td><input type="text" name="buscar_perfil" placeholder="Busque su jugador favorito" size="25" onkeyup="predictionsPerfil()"></td>
+                <td><input type="text" name="buscar_perfil" placeholder="Busque su jugador favorito" class="form-control" size="25" onkeyup="predictionsPerfil()"></td>
 
                 <td>
                     <div id="resultados_perfil" style="margin-left:120px;padding-left:5px;"></div>
@@ -145,7 +145,7 @@
                     <?php print($equipo); ?>
                 </td>
 
-                <td><input type="text" name="buscar_equipo" placeholder="Busque su equipo favorito" size="25" onkeyup="predictionsEquipo();"> </td>
+                <td><input type="text" name="buscar_equipo" placeholder="Busque su equipo favorito" class="form-control" size="25" onkeyup="predictionsEquipo();"> </td>
 
                 <td>
                     <div id="resultados_equipos" style="margin-left:120px;padding-left:5px;"></div>

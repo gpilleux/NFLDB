@@ -26,34 +26,18 @@ $result = pg_exec($conn, "SELECT * FROM usuarios");
 
         <script src="js/getAPI.js"></script>
         <script>
-            function escapeHtml(text) {
-                var map = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#039;'
-                };
-
-                return text.replace(/[&<>"']/g, function(m) {
-                    return map[m];
-                });
-            }
-
-            function llamar_otra_pagina() {
-                var texto = escapeHtml($('input[name="buscador"]').val());
-
-                var process = function(response) {
-                    $('#resultados').html(response);
-                }
-
-                getAPI("<?php echo $base_url; ?>/usuarios_search_getter.php?name=" + texto, process);
-
-            }
-
-            function predictions() {
-                if ($('input[name="buscador"]').val().length >= 1) {
-                    llamar_otra_pagina();
+            function buscar_usuario() {
+                var valor_enviar = $('#buscador').val();
+                console.log(valor_enviar.length);
+                if (valor_enviar.length > 0) {
+                    $(document).ready(function() {
+                        $.post("usuarios_search_getter.php", {
+                                name: valor_enviar
+                            },
+                            function(data, status) {
+                                $('#resultados').html(data);
+                            });
+                    });
                 } else {
                     $('#resultados').html('');
                 }
@@ -111,7 +95,9 @@ $result = pg_exec($conn, "SELECT * FROM usuarios");
         </div>
 
         <h1 align="center">Usuarios</h1>
-        <input type="text" name="buscador" placeholder="Buscar usuario" onkeyup="predictions()" align="right">
+        <div class="col-xs-4">
+            <input type="text" id="buscador" class="form-control" placeholder="Buscar usuario" onkeyup="buscar_usuario()" align="right">
+        </div>
         <div id="resultados" style="margin-left:120px;padding-left:5px;"></div>
 
         <table class="table table-striped">
