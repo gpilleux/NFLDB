@@ -95,8 +95,10 @@ $result = pg_exec($conn, "SELECT * FROM usuarios");
         </div>
 
         <h1 align="center">Usuarios</h1>
-        <div class="col-xs-4">
-            <input type="text" id="buscador" class="form-control" placeholder="Buscar usuario" onkeyup="buscar_usuario()" align="right">
+        <div class="row">
+            <div class="col-xs-4">
+                <input type="text" id="buscador" class="form-control" placeholder="Buscar usuario" onkeyup="buscar_usuario()" align="right">
+            </div>
         </div>
         <div id="resultados" style="margin-left:120px;padding-left:5px;"></div>
 
